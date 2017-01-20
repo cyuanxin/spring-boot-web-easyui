@@ -1,0 +1,90 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zyx.admin.mapper.RoleMapper">
+
+
+    <!-- Select with no parameters using the result map for Order class. -->
+    <select id="findAll" resultType="Role">
+        select
+        t.id AS id,
+        t.name as name,
+        t.role_code as roleCode,
+        t.description as description,
+        t.sort as sort,
+        t.del_flag as delFlag
+
+        from role t
+        LEFT JOIN user_role t1 ON t1.role_id = t.id
+        <where>
+            <if test="roleIds != null">
+                t1.id in
+                <foreach collection="roleIds" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="userId != null">
+                t1.user_id = #{userId}
+            </if>
+            <if test="id != null">
+                t.id = #{id}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="findRoleAll" resultType="Role">
+        select
+        t.id AS id,
+        t.name as name,
+        t.role_code as roleCode,
+        t.description as description,
+        t.sort as sort,
+        t.del_flag as delFlag
+
+        from role t
+        <where>
+            <if test="id != null">
+                t.id = #{id}
+            </if>
+
+        </where>
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Role">
+      insert into role
+      (name, role_code, description, sort, del_flag)
+      values
+      (#{name}, #{roleCode}, #{description}, #{sort},#{delFlag})
+   </insert>
+
+
+    <update id="update" parameterType="Role">
+        UPDATE role
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="roleCode != null">
+                role_code = #{roleCode},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="del">
+        DELETE FROM role
+        WHERE
+        id = #{id}
+    </delete>
+</mapper>

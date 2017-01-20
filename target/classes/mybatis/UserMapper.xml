@@ -1,0 +1,69 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zyx.admin.mapper.UserMapper">
+
+
+    <!-- Select with no parameters using the result map for Order class. -->
+    <select id="findAll" resultType="User">
+       select
+        t.id AS id,
+        login_name as loginName,
+        name as name,
+        password as password,
+        salt as salt,
+        birthday as birthday,
+        gender as gender,
+        email as email,
+        phone as phone,
+        icon as icon,
+        state as state,
+        description as description,
+        create_date as createDate
+       from  user t
+        <where>
+           <if test="id != null">
+               id = #{id}
+           </if>
+            <if test="loginName != null">
+                and login_name = #{loginName}
+            </if>
+
+        </where>
+    </select>
+
+   <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="User">
+      insert into
+      user
+      (merchant_id, name, contacts, phone, email, bus_type, access_type, is_signed, contract_duedate, m_percentage, s_percentage,
+      creator, status, create_date)
+      values
+      (#{merchantId}, #{name}, #{contacts}, #{phone},#{email},#{busType}, #{accessType}, #{isSigned},#{contractDueDate},
+      #{mPercentage}, #{sPercentage}, #{creator}, #{status}, now())
+   </insert>
+
+
+   <update id="update" parameterType="User">
+      UPDATE user
+      <set>
+         <if test="name != null">
+             name = #{name},
+         </if>
+          <if test="phone != null">
+              phone = #{phone},
+          </if>
+          <if test="email != null">
+              email = #{email},
+          </if>
+          <if test="icon != null">
+              icon = #{icon},
+          </if>
+          <if test="description != null">
+              description = #{description},
+          </if>
+      </set>
+      WHERE id = #{id}
+   </update>
+
+</mapper>

@@ -1,0 +1,95 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zyx.admin.mapper.UserRoleMapper">
+
+
+    <!-- Select with no parameters using the result map for Order class. -->
+    <select id="findAll" resultType="UserRole">
+        select
+        t.id AS id,
+        t.user_id as userId,
+        t.role_id as roleId
+        from user_role t
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+
+        </where>
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="UserRole">
+        insert into user_role (user_id, role_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.userId},#{item.roleId})
+        </foreach>
+    </insert>
+
+    <delete id="del">
+        DELETE FROM user_role
+        <where>
+            <if test="userIds">
+                AND user_id IN
+                <foreach collection="userIds" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="roleIds">
+                AND role_id IN
+                <foreach collection="roleIds" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </delete>
+
+    <update id="update" parameterType="UserRole">
+        UPDATE user_role
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="contacts != null">
+                contacts = #{contacts},
+            </if>
+            <if test="contractDueDate != null">
+                contract_duedate = #{contractDueDate},
+            </if>
+            <if test="mPercentage != null">
+                m_percentage = #{mPercentage},
+            </if>
+            <if test="sPercentage != null">
+                s_percentage = #{sPercentage},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="busType != null">
+                bus_type = #{busType},
+            </if>
+            <if test="accessType != null">
+                access_type = #{accessType},
+            </if>
+            <if test="isSigned != null">
+                is_signed = #{isSigned},
+            </if>
+            <if test="updator != null">
+                updator = #{updator}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>
