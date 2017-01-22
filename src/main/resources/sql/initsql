@@ -1,0 +1,547 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50541
+Source Host           : localhost:3306
+Source Database       : pofir
+
+Target Server Type    : MYSQL
+Target Server Version : 50541
+File Encoding         : 65001
+
+Date: 2015-01-16 14:11:46
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for dict
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `LABEL` VARCHAR(255) DEFAULT NULL,
+  `VALUE` VARCHAR(255) DEFAULT NULL,
+  `TYPE` VARCHAR(255) DEFAULT NULL,
+  `DESCRIPTION` VARCHAR(255) DEFAULT NULL,
+  `SORT` INT(11) DEFAULT NULL,
+  `REMARK` VARCHAR(255) DEFAULT NULL,
+  `DEL_FLAG` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB  DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict
+-- ----------------------------
+INSERT INTO `sys_dict` VALUES ('1', '正常', '0', 'user', '用户状态', '1', NULL, NULL);
+INSERT INTO `sys_dict` VALUES ('2', '禁用', '1', 'user', '用户状态', '2', NULL, NULL);
+INSERT INTO `sys_dict` VALUES ('4', '普通用户', '0', 'user', '用户类型', NULL, NULL, NULL);
+INSERT INTO `sys_dict` VALUES ('5', '会员用户', '1', 'user', '用户类型', NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `OPERATION_CODE` VARCHAR(50) NOT NULL COMMENT '操作编码',
+  `CREATER` VARCHAR(20) DEFAULT NULL COMMENT '操作用户名称',
+  `CREATE_DATE` DATETIME NOT NULL COMMENT '日志生成时间',
+  `TYPE` INT(11) DEFAULT NULL COMMENT '日志类型: 1：安全日志 2：表示操作日志',
+  `OS` VARCHAR(20) DEFAULT NULL,
+  `BROWSER` VARCHAR(20) DEFAULT NULL COMMENT '浏览器类型',
+  `IP` VARCHAR(20) DEFAULT NULL COMMENT 'IP地址',
+  `MAC` VARCHAR(20) DEFAULT NULL COMMENT '物理地址',
+  `EXECUTE_TIME` INT(11) DEFAULT NULL COMMENT '执行时间',
+  `DESCRIPTION` VARCHAR(500) DEFAULT NULL COMMENT '详细描述',
+  `REQUEST_PARAM` VARCHAR(500) DEFAULT NULL COMMENT '请求参数',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='日录资料表';
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+INSERT INTO `sys_log` VALUES ('2259', '/system/user/update', 'admin', '2014-12-04 10:25:40', NULL, 'Windows 7', 'Firefox 3', '127.0.0.1', NULL, '22', NULL, '{\"id\":[\"4\"],\"birthday\":[\"2014-4-2\"],\"phone\":[\"400\"],\"email\":[\"11@11.bee\"],\"name\":[\"bbb1234\"],\"gender\":[\"0\"],\"sys_loginName\":[\"bbb222\"]}');
+INSERT INTO `sys_log` VALUES ('2260', '/system/user/update', 'admin', '2014-12-04 10:26:14', NULL, 'Windows 7', 'Firefox 3', '127.0.0.1', NULL, '9', NULL, '{\"id\":[\"4\"],\"birthday\":[\"2014-4-2\"],\"phone\":[\"400\"],\"email\":[\"11@11.bee\"],\"name\":[\"bbb12346\"],\"gender\":[\"0\"],\"sys_loginName\":[\"bbb222\"]}');
+INSERT INTO `sys_log` VALUES ('2261', '/system/user/update', 'admin', '2014-12-04 10:37:01', NULL, 'Windows 7', 'Firefox 3', '127.0.0.1', NULL, '7', NULL, '{\"id\":[\"4\"],\"birthday\":[\"2014-4-2\"],\"phone\":[\"400\"],\"email\":[\"11@11.bee\"],\"name\":[\"bbb123466\"],\"gender\":[\"0\"],\"sys_loginName\":[\"bbb222\"]}');
+INSERT INTO `sys_log` VALUES ('2262', '/system/role/update', 'admin', '2014-12-04 10:48:43', NULL, 'Windows 7', 'Firefox 3', '127.0.0.1', NULL, '215', NULL, '{\"id\":[\"12\"],\"roleCode\":[\"guest212\"],\"sort\":[\"4\"],\"description\":[\"s\"],\"name\":[\"guest22\"]}');
+INSERT INTO `sys_log` VALUES ('2263', '/system/user/create', 'admin', '2014-12-05 11:55:03', NULL, 'Windows 7', 'Firefox 3', '127.0.0.1', NULL, '305', NULL, '{\"id\":[\"\"],\"birthday\":[\"2014-12-05\"],\"confirmPassword\":[\"123456\"],\"phone\":[\"\"],\"email\":[\"\"],\"name\":[\"tyty\"],\"plainPassword\":[\"123456\"],\"gender\":[\"1\"],\"sys_loginName\":[\"test\"]}');
+INSERT INTO `sys_log` VALUES ('2264', '/system/permission/create', 'admin', '2014-12-13 11:19:15', NULL, 'Windows 7', 'Firefox 3', '127.0.0.1', NULL, '215', NULL, '{\"id\":[\"\"],\"icon\":[\"icon-hamburg-full-time\"],\"sort\":[\"\"],\"description\":[\"定时任务管理，支持集群\"],\"name\":[\"定时任务管理\"],\"permCode\":[\"\"],\"pid\":[\"\"],\"type\":[\"F\"],\"url\":[\"system/scheuleJob\"]}');
+INSERT INTO `sys_log` VALUES ('2265', '/system/permission/update', 'admin', '2014-12-13 11:19:40', NULL, 'Windows 7', 'Firefox 3', '127.0.0.1', NULL, '66', NULL, '{\"id\":[\"37\"],\"icon\":[\"icon-hamburg-full-time\"],\"sort\":[\"\"],\"description\":[\"定时任务管理，支持集群\"],\"name\":[\"定时任务管理\"],\"permCode\":[\"\"],\"pid\":[\"15\"],\"type\":[\"F\"],\"url\":[\"system/scheuleJob\"]}');
+INSERT INTO `sys_log` VALUES ('2266', '/system/permission/update', 'admin', '2014-12-13 11:22:17', NULL, 'Windows 7', 'Firefox 3', '127.0.0.1', NULL, '186', NULL, '{\"id\":[\"37\"],\"icon\":[\"icon-hamburg-full-time\"],\"sort\":[\"\"],\"description\":[\"定时任务管理，支持集群\"],\"name\":[\"定时任务管理\"],\"permCode\":[\"\"],\"pid\":[\"15\"],\"type\":[\"F\"],\"url\":[\"system/scheduleJob\"]}');
+
+-- ----------------------------
+-- Table structure for permission
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_permission`;
+CREATE TABLE `sys_permission` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `PID` INT(11) DEFAULT NULL COMMENT '父节点名称',
+  `NAME` VARCHAR(50) NOT NULL COMMENT '名称',
+  `TYPE` VARCHAR(20) DEFAULT NULL COMMENT '类型:菜单or功能',
+  `SORT` INT(11) DEFAULT NULL COMMENT '排序',
+  `URL` VARCHAR(255) DEFAULT NULL,
+  `PERM_CODE` VARCHAR(50) DEFAULT NULL COMMENT '菜单编码',
+  `ICON` VARCHAR(255) DEFAULT NULL,
+  `STATE` VARCHAR(10) DEFAULT NULL,
+  `DESCRIPTION` TEXT,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB  DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of permission
+-- ----------------------------
+INSERT INTO `sys_permission` VALUES ('1', NULL, '系统管理', 'F', '1', '', '', 'icon-standard-cog', '', '');
+INSERT INTO `sys_permission` VALUES ('2', '1', '角色管理', 'F', '3', 'system/role', '', 'icon-hamburg-my-account', 'closed', '');
+INSERT INTO `sys_permission` VALUES ('3', '1', '用户管理', 'F', '2', 'system/user', '', 'icon-hamburg-user', 'closed', '');
+INSERT INTO `sys_permission` VALUES ('4', '2', '添加', 'O', NULL, '', 'sys:role:add', '', '', '角色添加');
+INSERT INTO `sys_permission` VALUES ('5', '2', '删除', 'O', NULL, '', 'sys:role:delete', '', '', '角色删除');
+INSERT INTO `sys_permission` VALUES ('6', '2', '修改', 'O', NULL, '', 'sys:role:update', '', '', '角色修改');
+INSERT INTO `sys_permission` VALUES ('7', '3', '添加', 'O', NULL, '', 'sys:user:add', '', '', '用户添加');
+INSERT INTO `sys_permission` VALUES ('8', '3', '删除', 'O', NULL, '', 'sys:user:delete', '', '', '用户删除');
+INSERT INTO `sys_permission` VALUES ('12', '1', '权限管理', 'F', '5', 'system/permission', '', 'icon-hamburg-login', 'closed', '');
+INSERT INTO `sys_permission` VALUES ('14', '15', '数据源监控', 'F', '6', 'druid', '', 'icon-hamburg-database', '', '');
+INSERT INTO `sys_permission` VALUES ('15', NULL, '系统监控', 'F', '5', '', '', 'icon-hamburg-graphic', '', '');
+INSERT INTO `sys_permission` VALUES ('16', '3', '修改', 'O', NULL, '', 'sys:user:update', '', '', '用户修改');
+INSERT INTO `sys_permission` VALUES ('20', '15', '日志管理', 'F', '7', 'system/log', '', 'icon-hamburg-archives', '', '');
+INSERT INTO `sys_permission` VALUES ('25', '12', '添加', 'O', NULL, '', 'sys:perm:add', '', '', '菜单添加');
+INSERT INTO `sys_permission` VALUES ('26', '12', '修改', 'O', NULL, '', 'sys:perm:update', '', '', '菜单修改');
+INSERT INTO `sys_permission` VALUES ('27', '12', '删除', 'O', NULL, '', 'sys:perm:delete', '', '', '菜单删除');
+INSERT INTO `sys_permission` VALUES ('28', '2', '查看', 'O', NULL, '', 'sys:role:view', '', '', '角色查看');
+INSERT INTO `sys_permission` VALUES ('29', '3', '查看', 'O', NULL, '', 'sys:user:view', '', NULL, '用户查看');
+INSERT INTO `sys_permission` VALUES ('30', '12', '查看', 'O', NULL, '', 'sys:perm:view', '', NULL, '权限查看');
+INSERT INTO `sys_permission` VALUES ('31', '20', '删除', 'O', NULL, '', 'sys:log:delete', '', NULL, '删除日志');
+INSERT INTO `sys_permission` VALUES ('32', '20', '导出excel', 'O', NULL, '', 'sys:log:exportExcel', '', NULL, '导出日志excel');
+INSERT INTO `sys_permission` VALUES ('33', '3', '查看用户角色', 'O', NULL, '', 'sys:user:roleView', '', NULL, '查看用户角色');
+INSERT INTO `sys_permission` VALUES ('34', '2', '保存授权', 'O', NULL, '', 'sys:role:permUpd', '', NULL, '保存修改的角色权限');
+INSERT INTO `sys_permission` VALUES ('35', '3', '修改用户角色', 'O', NULL, '', 'sys:user:roleUpd', '', NULL, '修改用户拥有的角色');
+INSERT INTO `sys_permission` VALUES ('36', '2', '查看角色权限', 'O', NULL, '', 'sys:role:permView', '', NULL, '查看角色拥有的权限');
+INSERT INTO `sys_permission` VALUES ('37', '15', '定时任务管理', 'F', NULL, 'system/scheduleJob', '', 'icon-hamburg-full-time', NULL, '定时任务管理，支持集群');
+INSERT INTO `sys_permission` VALUES ('38', '15', 'cron表达式生成', 'F', NULL, 'system/scheduleJob/quartzCron', '', 'icon-hamburg-future', NULL, '');
+INSERT INTO `sys_permission` VALUES ('39', '1', '菜单管理', 'F', '4', 'system/permission/menu', '', 'icon-hamburg-old-versions', NULL, '');
+INSERT INTO `sys_permission` VALUES ('40', '1', '字典管理', 'F', '6', 'system/dict', NULL, 'icon-hamburg-address', NULL, '数据字典管理');
+INSERT INTO `sys_permission` VALUES ('45', '39', '修改', 'O', NULL, '', 'sys:perm:update', NULL, NULL, '菜单管理');
+INSERT INTO `sys_permission` VALUES ('58', '39', '添加', 'O', NULL, '', 'sys:perm:add', NULL, NULL, '菜单管理');
+INSERT INTO `sys_permission` VALUES ('59', '39', '删除', 'O', NULL, '', 'sys:perm:delte', NULL, NULL, '菜单管理');
+INSERT INTO `sys_permission` VALUES ('61', '40', '添加', 'O', NULL, '', 'sys:dict:add', NULL, NULL, '字典管理');
+INSERT INTO `sys_permission` VALUES ('62', '40', '删除', 'O', NULL, '', 'sys:dict:delete', NULL, NULL, '字典管理');
+INSERT INTO `sys_permission` VALUES ('63', '40', '修改', 'O', NULL, '', 'sys:dict:update', NULL, NULL, '字典管理');
+INSERT INTO `sys_permission` VALUES ('68', '20', '查看', 'O', NULL, '', 'sys:log:view', NULL, NULL, '查看日志');
+INSERT INTO `sys_permission` VALUES ('69', '40', '查看', 'O', NULL, '', 'sys:dict:view', NULL, NULL, '字典管理');
+INSERT INTO `sys_permission` VALUES ('70', '39', '查看', 'O', NULL, '', 'sys:perm:menu:view', NULL, NULL, '菜单管理');
+
+-- ----------------------------
+-- Table structure for qrtz_blob_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_blob_triggers`;
+CREATE TABLE `qrtz_blob_triggers` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `TRIGGER_NAME` VARCHAR(200) NOT NULL,
+  `TRIGGER_GROUP` VARCHAR(200) NOT NULL,
+  `BLOB_DATA` BLOB,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_blob_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for qrtz_calendars
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_calendars`;
+CREATE TABLE `qrtz_calendars` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `CALENDAR_NAME` VARCHAR(200) NOT NULL,
+  `CALENDAR` BLOB NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`CALENDAR_NAME`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_calendars
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for qrtz_cron_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_cron_triggers`;
+CREATE TABLE `qrtz_cron_triggers` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `TRIGGER_NAME` VARCHAR(200) NOT NULL,
+  `TRIGGER_GROUP` VARCHAR(200) NOT NULL,
+  `CRON_EXPRESSION` VARCHAR(200) NOT NULL,
+  `TIME_ZONE_ID` VARCHAR(80) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_cron_triggers
+-- ----------------------------
+INSERT INTO `qrtz_cron_triggers` VALUES ('scheduler', 'test1', 'testgroup', '0/5 * * * * ?', 'Asia/Shanghai');
+
+-- ----------------------------
+-- Table structure for qrtz_fired_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_fired_triggers`;
+CREATE TABLE `qrtz_fired_triggers` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `ENTRY_ID` VARCHAR(95) NOT NULL,
+  `TRIGGER_NAME` VARCHAR(200) NOT NULL,
+  `TRIGGER_GROUP` VARCHAR(200) NOT NULL,
+  `INSTANCE_NAME` VARCHAR(200) NOT NULL,
+  `FIRED_TIME` BIGINT(13) NOT NULL,
+  `SCHED_TIME` BIGINT(13) NOT NULL,
+  `PRIORITY` INT(11) NOT NULL,
+  `STATE` VARCHAR(16) NOT NULL,
+  `JOB_NAME` VARCHAR(200) DEFAULT NULL,
+  `JOB_GROUP` VARCHAR(200) DEFAULT NULL,
+  `IS_NONCONCURRENT` VARCHAR(1) DEFAULT NULL,
+  `REQUESTS_RECOVERY` VARCHAR(1) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`ENTRY_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_fired_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for qrtz_job_details
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_job_details`;
+CREATE TABLE `qrtz_job_details` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `JOB_NAME` VARCHAR(200) NOT NULL,
+  `JOB_GROUP` VARCHAR(200) NOT NULL,
+  `DESCRIPTION` VARCHAR(250) DEFAULT NULL,
+  `JOB_CLASS_NAME` VARCHAR(250) NOT NULL,
+  `IS_DURABLE` VARCHAR(1) NOT NULL,
+  `IS_NONCONCURRENT` VARCHAR(1) NOT NULL,
+  `IS_UPDATE_DATA` VARCHAR(1) NOT NULL,
+  `REQUESTS_RECOVERY` VARCHAR(1) NOT NULL,
+  `JOB_DATA` BLOB,
+  PRIMARY KEY (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_job_details
+-- ----------------------------
+INSERT INTO `qrtz_job_details` VALUES ('scheduler', 'test1', 'testgroup', NULL, 'TaskA', '0', '1', '0', '0', 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000B7363686564756C654A6F6273720028636F6D2E7469616E79752E6A74792E73797374656D2E656E746974792E5363686564756C654A6F6200000000000000010200064C0009636C6173734E616D657400124C6A6176612F6C616E672F537472696E673B4C000E63726F6E45787072657373696F6E71007E00094C000B6465736372697074696F6E71007E00094C000567726F757071007E00094C00046E616D6571007E00094C000673746174757371007E00097870740023636F6D2E7469616E79752E6A74792E73797374656D2E736572766963652E5461736B4174000D302F35202A202A202A202A203F707400097465737467726F75707400057465737431740001317800);
+
+-- ----------------------------
+-- Table structure for qrtz_locks
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_locks`;
+CREATE TABLE `qrtz_locks` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `LOCK_NAME` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_locks
+-- ----------------------------
+INSERT INTO `qrtz_locks` VALUES ('scheduler', 'STATE_ACCESS');
+INSERT INTO `qrtz_locks` VALUES ('scheduler', 'TRIGGER_ACCESS');
+
+-- ----------------------------
+-- Table structure for qrtz_paused_trigger_grps
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
+CREATE TABLE `qrtz_paused_trigger_grps` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `TRIGGER_GROUP` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_GROUP`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_paused_trigger_grps
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for qrtz_scheduler_state
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_scheduler_state`;
+CREATE TABLE `qrtz_scheduler_state` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `INSTANCE_NAME` VARCHAR(200) NOT NULL,
+  `LAST_CHECKIN_TIME` BIGINT(13) NOT NULL,
+  `CHECKIN_INTERVAL` BIGINT(13) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`INSTANCE_NAME`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_scheduler_state
+-- ----------------------------
+INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler', 'jfz-pc1421376050869', '1421382311627', '15000');
+
+-- ----------------------------
+-- Table structure for qrtz_simple_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_simple_triggers`;
+CREATE TABLE `qrtz_simple_triggers` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `TRIGGER_NAME` VARCHAR(200) NOT NULL,
+  `TRIGGER_GROUP` VARCHAR(200) NOT NULL,
+  `REPEAT_COUNT` BIGINT(7) NOT NULL,
+  `REPEAT_INTERVAL` BIGINT(12) NOT NULL,
+  `TIMES_TRIGGERED` BIGINT(10) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_simple_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for qrtz_simprop_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
+CREATE TABLE `qrtz_simprop_triggers` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `TRIGGER_NAME` VARCHAR(200) NOT NULL,
+  `TRIGGER_GROUP` VARCHAR(200) NOT NULL,
+  `STR_PROP_1` VARCHAR(512) DEFAULT NULL,
+  `STR_PROP_2` VARCHAR(512) DEFAULT NULL,
+  `STR_PROP_3` VARCHAR(512) DEFAULT NULL,
+  `INT_PROP_1` INT(11) DEFAULT NULL,
+  `INT_PROP_2` INT(11) DEFAULT NULL,
+  `LONG_PROP_1` BIGINT(20) DEFAULT NULL,
+  `LONG_PROP_2` BIGINT(20) DEFAULT NULL,
+  `DEC_PROP_1` DECIMAL(13,4) DEFAULT NULL,
+  `DEC_PROP_2` DECIMAL(13,4) DEFAULT NULL,
+  `BOOL_PROP_1` VARCHAR(1) DEFAULT NULL,
+  `BOOL_PROP_2` VARCHAR(1) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_simprop_triggers
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for qrtz_triggers
+-- ----------------------------
+DROP TABLE IF EXISTS `qrtz_triggers`;
+CREATE TABLE `qrtz_triggers` (
+  `SCHED_NAME` VARCHAR(120) NOT NULL,
+  `TRIGGER_NAME` VARCHAR(200) NOT NULL,
+  `TRIGGER_GROUP` VARCHAR(200) NOT NULL,
+  `JOB_NAME` VARCHAR(200) NOT NULL,
+  `JOB_GROUP` VARCHAR(200) NOT NULL,
+  `DESCRIPTION` VARCHAR(250) DEFAULT NULL,
+  `NEXT_FIRE_TIME` BIGINT(13) DEFAULT NULL,
+  `PREV_FIRE_TIME` BIGINT(13) DEFAULT NULL,
+  `PRIORITY` INT(11) DEFAULT NULL,
+  `TRIGGER_STATE` VARCHAR(16) NOT NULL,
+  `TRIGGER_TYPE` VARCHAR(8) NOT NULL,
+  `START_TIME` BIGINT(13) NOT NULL,
+  `END_TIME` BIGINT(13) DEFAULT NULL,
+  `CALENDAR_NAME` VARCHAR(200) DEFAULT NULL,
+  `MISFIRE_INSTR` SMALLINT(2) DEFAULT NULL,
+  `JOB_DATA` BLOB,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `SCHED_NAME` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`) USING BTREE,
+  CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) REFERENCES `qrtz_job_details` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qrtz_triggers
+-- ----------------------------
+INSERT INTO `qrtz_triggers` VALUES ('scheduler', 'test1', 'testgroup', 'test1', 'testgroup', NULL, '1421206460000', '1421206455000', '5', 'PAUSED', 'CRON', '1421206412000', '0', NULL, '0', '');
+
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `NAME` VARCHAR(20) NOT NULL,
+  `ROLE_CODE` VARCHAR(20) NOT NULL,
+  `DESCRIPTION` TEXT,
+  `SORT` SMALLINT(6) DEFAULT NULL,
+  `DEL_FLAG` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `sys_role` VALUES ('1', 'admin', 'admin', 'admin', '2', NULL);
+INSERT INTO `sys_role` VALUES ('5', 'guest', 'guest', 'guest', '3', NULL);
+INSERT INTO `sys_role` VALUES ('13', 'superadmin', 'superadmin', '超级管理员', '1', NULL);
+
+-- ----------------------------
+-- Table structure for role_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_permission`;
+CREATE TABLE `sys_role_permission` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `ROLE_ID` INT(11) DEFAULT NULL,
+  `PERMISSION_ID` INT(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_ROLE_PER_REFERENCE_PERMISSI` (`PERMISSION_ID`) USING BTREE,
+  KEY `FK_ROLE_PER_REFERENCE_ROLE` (`ROLE_ID`) USING BTREE,
+  CONSTRAINT `role_permission_ibfk_1` FOREIGN KEY (`PERMISSION_ID`) REFERENCES `permission` (`ID`),
+  CONSTRAINT `role_permission_ibfk_2` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role_permission
+-- ----------------------------
+INSERT INTO `sys_role_permission` VALUES ('1', '1', '2');
+INSERT INTO `sys_role_permission` VALUES ('2', '1', '1');
+INSERT INTO `sys_role_permission` VALUES ('28', '5', '1');
+INSERT INTO `sys_role_permission` VALUES ('61', '13', '1');
+INSERT INTO `sys_role_permission` VALUES ('62', '13', '3');
+INSERT INTO `sys_role_permission` VALUES ('63', '13', '16');
+INSERT INTO `sys_role_permission` VALUES ('64', '13', '7');
+INSERT INTO `sys_role_permission` VALUES ('65', '13', '2');
+INSERT INTO `sys_role_permission` VALUES ('66', '13', '4');
+INSERT INTO `sys_role_permission` VALUES ('67', '13', '5');
+INSERT INTO `sys_role_permission` VALUES ('68', '13', '6');
+INSERT INTO `sys_role_permission` VALUES ('69', '13', '12');
+INSERT INTO `sys_role_permission` VALUES ('70', '13', '25');
+INSERT INTO `sys_role_permission` VALUES ('71', '13', '26');
+INSERT INTO `sys_role_permission` VALUES ('72', '13', '27');
+INSERT INTO `sys_role_permission` VALUES ('74', '13', '15');
+INSERT INTO `sys_role_permission` VALUES ('75', '13', '14');
+INSERT INTO `sys_role_permission` VALUES ('76', '13', '20');
+INSERT INTO `sys_role_permission` VALUES ('77', '13', '8');
+INSERT INTO `sys_role_permission` VALUES ('81', '1', '3');
+INSERT INTO `sys_role_permission` VALUES ('88', '1', '12');
+INSERT INTO `sys_role_permission` VALUES ('93', '1', '15');
+INSERT INTO `sys_role_permission` VALUES ('94', '1', '14');
+INSERT INTO `sys_role_permission` VALUES ('95', '1', '20');
+INSERT INTO `sys_role_permission` VALUES ('118', '1', '28');
+INSERT INTO `sys_role_permission` VALUES ('120', '1', '30');
+INSERT INTO `sys_role_permission` VALUES ('121', '1', '31');
+INSERT INTO `sys_role_permission` VALUES ('125', '1', '33');
+INSERT INTO `sys_role_permission` VALUES ('126', '1', '36');
+INSERT INTO `sys_role_permission` VALUES ('127', '1', '35');
+INSERT INTO `sys_role_permission` VALUES ('129', '1', '34');
+INSERT INTO `sys_role_permission` VALUES ('130', '1', '32');
+INSERT INTO `sys_role_permission` VALUES ('133', '5', '15');
+INSERT INTO `sys_role_permission` VALUES ('135', '1', '37');
+INSERT INTO `sys_role_permission` VALUES ('142', '1', '38');
+INSERT INTO `sys_role_permission` VALUES ('145', '1', '40');
+INSERT INTO `sys_role_permission` VALUES ('147', '1', '29');
+INSERT INTO `sys_role_permission` VALUES ('151', '1', '61');
+INSERT INTO `sys_role_permission` VALUES ('152', '1', '62');
+INSERT INTO `sys_role_permission` VALUES ('153', '1', '63');
+INSERT INTO `sys_role_permission` VALUES ('162', '5', '39');
+INSERT INTO `sys_role_permission` VALUES ('164', '5', '58');
+INSERT INTO `sys_role_permission` VALUES ('176', '5', '40');
+INSERT INTO `sys_role_permission` VALUES ('177', '1', '39');
+INSERT INTO `sys_role_permission` VALUES ('178', '1', '58');
+INSERT INTO `sys_role_permission` VALUES ('179', '1', '59');
+INSERT INTO `sys_role_permission` VALUES ('183', '1', '4');
+INSERT INTO `sys_role_permission` VALUES ('184', '1', '6');
+INSERT INTO `sys_role_permission` VALUES ('185', '1', '26');
+INSERT INTO `sys_role_permission` VALUES ('186', '1', '27');
+INSERT INTO `sys_role_permission` VALUES ('187', '1', '5');
+INSERT INTO `sys_role_permission` VALUES ('189', '1', '25');
+INSERT INTO `sys_role_permission` VALUES ('190', '1', '45');
+INSERT INTO `sys_role_permission` VALUES ('191', '1', '7');
+INSERT INTO `sys_role_permission` VALUES ('192', '1', '8');
+INSERT INTO `sys_role_permission` VALUES ('193', '1', '16');
+INSERT INTO `sys_role_permission` VALUES ('194', '13', '28');
+INSERT INTO `sys_role_permission` VALUES ('195', '13', '34');
+INSERT INTO `sys_role_permission` VALUES ('196', '13', '36');
+INSERT INTO `sys_role_permission` VALUES ('197', '13', '29');
+INSERT INTO `sys_role_permission` VALUES ('198', '13', '33');
+INSERT INTO `sys_role_permission` VALUES ('199', '13', '35');
+INSERT INTO `sys_role_permission` VALUES ('200', '13', '30');
+INSERT INTO `sys_role_permission` VALUES ('201', '13', '39');
+INSERT INTO `sys_role_permission` VALUES ('202', '13', '45');
+INSERT INTO `sys_role_permission` VALUES ('203', '13', '58');
+INSERT INTO `sys_role_permission` VALUES ('204', '13', '59');
+INSERT INTO `sys_role_permission` VALUES ('205', '13', '40');
+INSERT INTO `sys_role_permission` VALUES ('206', '13', '61');
+INSERT INTO `sys_role_permission` VALUES ('207', '13', '62');
+INSERT INTO `sys_role_permission` VALUES ('208', '13', '63');
+INSERT INTO `sys_role_permission` VALUES ('209', '13', '31');
+INSERT INTO `sys_role_permission` VALUES ('210', '13', '32');
+INSERT INTO `sys_role_permission` VALUES ('211', '13', '37');
+INSERT INTO `sys_role_permission` VALUES ('212', '13', '38');
+INSERT INTO `sys_role_permission` VALUES ('213', '1', '69');
+INSERT INTO `sys_role_permission` VALUES ('215', '5', '69');
+INSERT INTO `sys_role_permission` VALUES ('216', '5', '20');
+INSERT INTO `sys_role_permission` VALUES ('219', '5', '68');
+INSERT INTO `sys_role_permission` VALUES ('220', '5', '38');
+INSERT INTO `sys_role_permission` VALUES ('221', '1', '70');
+INSERT INTO `sys_role_permission` VALUES ('222', '5', '70');
+INSERT INTO `sys_role_permission` VALUES ('223', '5', '3');
+INSERT INTO `sys_role_permission` VALUES ('227', '5', '29');
+INSERT INTO `sys_role_permission` VALUES ('228', '5', '33');
+INSERT INTO `sys_role_permission` VALUES ('229', '5', '35');
+INSERT INTO `sys_role_permission` VALUES ('231', '5', '2');
+INSERT INTO `sys_role_permission` VALUES ('234', '5', '28');
+INSERT INTO `sys_role_permission` VALUES ('235', '5', '45');
+INSERT INTO `sys_role_permission` VALUES ('236', '5', '59');
+INSERT INTO `sys_role_permission` VALUES ('239', '5', '36');
+INSERT INTO `sys_role_permission` VALUES ('240', '1', '68');
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `LOGIN_NAME` VARCHAR(20) NOT NULL,
+  `NAME` VARCHAR(20) NOT NULL,
+  `PASSWORD` VARCHAR(255) NOT NULL,
+  `SALT` VARCHAR(255) DEFAULT NULL,
+  `BIRTHDAY` DATETIME DEFAULT NULL,
+  `GENDER` SMALLINT(6) DEFAULT NULL,
+  `EMAIL` VARCHAR(255) DEFAULT NULL,
+  `PHONE` VARCHAR(20) DEFAULT NULL,
+  `ICON` VARCHAR(500) DEFAULT NULL,
+  `CREATE_DATE` DATETIME DEFAULT NULL,
+  `STATE` CHAR(1) DEFAULT NULL,
+  `DESCRIPTION` TEXT,
+  `LOGIN_COUNT` INT(11) DEFAULT NULL,
+  `PREVIOUS_VISIT` DATETIME DEFAULT NULL,
+  `LAST_VISIT` DATETIME DEFAULT NULL,
+  `DEL_FLAG` VARCHAR(1) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `sys_user` VALUES ('1', 'admin', 'admin', '159ae5f48f14e89f3f9f54dc995f1f276d472b54', '3d06a5c14d010804', '2014-03-16 22:44:39', '1', 'staryuanxin@qq.com', '123456789', 'aaa', '2014-03-20 14:38:57', '0', NULL, '129', '2015-01-16 10:22:19', '2015-01-16 10:24:21', NULL);
+INSERT INTO `sys_user` VALUES ('3', 'jfz', 'tiany', '1e8df4b59b3a3ab452ed1707ad3cb1a8e63a0630', 'bb2aa40007ad1238', '2014-04-02 00:00:00', '0', '', '300', '', '2014-04-02 11:49:13', '0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_user` VALUES ('5', 'test', 'tyty11', 'dc6d230074477c8d736bfe0205260e9320565aa6', '94886d7223c80850', '2014-12-05 00:00:00', '1', '', '', NULL, '2014-12-05 11:55:03', '1', 'ss', '1', NULL, '2014-12-14 00:09:27', NULL);
+INSERT INTO `sys_user` VALUES ('6', 'superadmin', '超级管理员', 'df894ac0dd60772f22b5d67fe5d8b04fb4c9188d', '97efb48ee6adff63', '2015-01-15 00:00:00', '1', 'staryuanxin@qq.com', '15989082934', NULL, '2015-01-15 15:55:37', NULL, '超级管理员', NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `USER_ID` INT(11) NOT NULL,
+  `ROLE_ID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `FK_USER_ROL_REFERENCE_ROLE` (`ROLE_ID`) USING BTREE,
+  KEY `FK_USER_ROL_REFERENCE_USERS` (`USER_ID`) USING BTREE,
+  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`ID`),
+  CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO `sys_user_role` VALUES ('1', '1', '1');
+INSERT INTO `sys_user_role` VALUES ('19', '3', '5');
+INSERT INTO `sys_user_role` VALUES ('32', '5', '5');
+INSERT INTO `sys_user_role` VALUES ('35', '6', '13');
+INSERT INTO `sys_user_role` VALUES ('36', '6', '1');
+
+
+

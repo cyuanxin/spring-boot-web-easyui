@@ -11,7 +11,7 @@
         t.id AS id,
         t.user_id as userId,
         t.role_id as roleId
-        from user_role t
+        from sys_user_role t
         <where>
             <if test="id != null">
                 id = #{id}
@@ -24,7 +24,7 @@
     </select>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="UserRole">
-        insert into user_role (user_id, role_id)
+        insert into sys_user_role (user_id, role_id)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.userId},#{item.roleId})
@@ -32,7 +32,7 @@
     </insert>
 
     <delete id="del">
-        DELETE FROM user_role
+        DELETE FROM sys_user_role
         <where>
             <if test="userIds">
                 AND user_id IN
@@ -50,7 +50,7 @@
     </delete>
 
     <update id="update" parameterType="UserRole">
-        UPDATE user_role
+        UPDATE sys_user_role
         <set>
             <if test="name != null">
                 name = #{name},

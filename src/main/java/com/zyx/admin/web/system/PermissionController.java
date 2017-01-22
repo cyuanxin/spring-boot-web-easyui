@@ -194,13 +194,17 @@ public class PermissionController extends BaseController {
     @RequestMapping(value = "delete/{id}")
     @ResponseBody
     public String delete(@PathVariable("id") Integer id) {
-        Map<String, Object> map = Maps.newLinkedHashMap();
-        Map<String, Object> roperMap = Maps.newLinkedHashMap();
-        map.put("id", id);
+        Map<String, Object> delMap = Maps.newLinkedHashMap();
+        Map<String, Object> getIdMap = Maps.newLinkedHashMap();
+        getIdMap.put("pid", id);
+        List<Perm> pers = permissionService.findPerAll(getIdMap);
+
         List<Integer> list = Lists.newLinkedList();
         list.add(id);
-        roperMap.put("permissionIds", list);
-        permissionService.delete(map, roperMap);
+        pers.stream().forEach(x -> list.add(x.getId()));
+        delMap.put("permissionIds", list);
+        delMap.put("ids", list);
+        permissionService.delete(delMap);
         return "success";
     }
 
