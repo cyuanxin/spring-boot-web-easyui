@@ -15,8 +15,8 @@
         t.sort as sort,
         t.del_flag as delFlag
 
-        from role t
-        LEFT JOIN user_role t1 ON t1.role_id = t.id
+        from sys_role t
+        LEFT JOIN sys_user_role t1 ON t1.role_id = t.id
         <where>
             <if test="roleIds != null">
                 t1.id in
@@ -43,7 +43,7 @@
         t.sort as sort,
         t.del_flag as delFlag
 
-        from role t
+        from sys_role t
         <where>
             <if test="id != null">
                 t.id = #{id}
@@ -53,7 +53,7 @@
     </select>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Role">
-      insert into role
+      insert into sys_role
       (name, role_code, description, sort, del_flag)
       values
       (#{name}, #{roleCode}, #{description}, #{sort},#{delFlag})
@@ -61,7 +61,7 @@
 
 
     <update id="update" parameterType="Role">
-        UPDATE role
+        UPDATE sys_role
         <set>
             <if test="name != null">
                 name = #{name},
@@ -83,7 +83,7 @@
     </update>
 
     <delete id="del">
-        DELETE FROM role
+        DELETE FROM sys_role
         WHERE
         id = #{id}
     </delete>

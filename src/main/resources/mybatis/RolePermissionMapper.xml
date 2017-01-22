@@ -11,7 +11,7 @@
         t.id AS id,
         role_id as roleId,
         permission_id as permissionId
-        from role_permission t
+        from sys_role_permission t
         <where>
             <if test="id != null">
                 id = #{id}
@@ -27,7 +27,7 @@
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
       insert into
-      role_permission
+        sys_role_permission
       (role_id, permission_id)
       values
       <foreach collection="list" item="item" separator=",">
@@ -36,8 +36,8 @@
    </insert>
 
 
-    <update id="update" parameterType="merchantInfo">
-        UPDATE fa_merchant_info
+    <update id="update" parameterType="rolePermission">
+        UPDATE sys_role_permission
         <set>
             <if test="name != null">
                 name = #{name},
@@ -80,7 +80,7 @@
     </update>
 
     <delete id="del">
-        DELETE FROM role_permission
+        DELETE FROM sys_role_permission
         <where>
             <if test="roleIds">
                 AND role_id IN

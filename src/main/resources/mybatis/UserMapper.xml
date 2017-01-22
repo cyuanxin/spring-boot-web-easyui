@@ -7,7 +7,7 @@
 
     <!-- Select with no parameters using the result map for Order class. -->
     <select id="findAll" resultType="User">
-       select
+        select
         t.id AS id,
         login_name as loginName,
         name as name,
@@ -21,11 +21,11 @@
         state as state,
         description as description,
         create_date as createDate
-       from  user t
+        from sys_user t
         <where>
-           <if test="id != null">
-               id = #{id}
-           </if>
+            <if test="id != null">
+                id = #{id}
+            </if>
             <if test="loginName != null">
                 and login_name = #{loginName}
             </if>
@@ -33,9 +33,9 @@
         </where>
     </select>
 
-   <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="User">
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="User">
       insert into
-      user
+      sys_user
       (merchant_id, name, contacts, phone, email, bus_type, access_type, is_signed, contract_duedate, m_percentage, s_percentage,
       creator, status, create_date)
       values
@@ -44,26 +44,29 @@
    </insert>
 
 
-   <update id="update" parameterType="User">
-      UPDATE user
-      <set>
-         <if test="name != null">
-             name = #{name},
-         </if>
-          <if test="phone != null">
-              phone = #{phone},
-          </if>
-          <if test="email != null">
-              email = #{email},
-          </if>
-          <if test="icon != null">
-              icon = #{icon},
-          </if>
-          <if test="description != null">
-              description = #{description},
-          </if>
-      </set>
-      WHERE id = #{id}
-   </update>
+    <update id="update" parameterType="User">
+        UPDATE sys_user
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="icon != null">
+                icon = #{icon},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
 </mapper>

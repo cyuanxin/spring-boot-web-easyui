@@ -27,36 +27,6 @@ public class DBConfig {
     }
 
 
-//    @Bean(name="mybatisSqlSessionFactory")
-//    public SqlSessionFactory derivedSqlSessionFactory(
-//            @Qualifier("coreDataSource")DataSource dataSource)
-//            throws Exception {
-//        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-//        sessionFactory.setDataSource(dataSource);
-//        List<Resource> resourceList = new ArrayList<>();
-//        resourceList.addAll(Arrays.asList(new PathMatchingResourcePatternResolver().
-//                getResources("mybatis/*.xml")));
-//
-//        Resource[] resources = new Resource[0];
-//        sessionFactory.setMapperLocations(resourceList.toArray(resources));
-//        sessionFactory.setTypeAliasesPackage("com.zyx.admin");
-//
-//        Interceptor[] plugins = new Interceptor[1];
-//        Interceptor helper = new PageHelper();
-//        Properties properties = new Properties();
-//        properties.setProperty("dialect","mysql");
-//        properties.setProperty("reasonable", "true");
-//        helper.setProperties(new Properties());
-//        plugins[0] = helper;
-//        sessionFactory.setPlugins(plugins);
-//
-//        return sessionFactory.getObject();
-//    }
-
-
-
-
-
     @Bean(name="scheduler")
     public SchedulerFactoryBean schedulerFactoryBean()
             throws Exception {

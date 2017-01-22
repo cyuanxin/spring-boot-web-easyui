@@ -18,11 +18,11 @@
         p.perm_code as permCode,
         p.description as description,
         p.state as state
-        FROM permission p
-        INNER JOIN role_permission rp on p.ID=rp.permission_id
-        INNER JOIN role r ON r.id=rp.role_id
-        INNER JOIN user_role ur ON ur.role_id =rp.role_id
-        INNER JOIN user u ON u.id = ur.user_id
+        FROM sys_permission p
+        INNER JOIN sys_role_permission rp on p.ID=rp.permission_id
+        INNER JOIN sys_role r ON r.id=rp.role_id
+        INNER JOIN sys_user_role ur ON ur.role_id =rp.role_id
+        INNER JOIN sys_user u ON u.id = ur.user_id
         <where>
             <if test="id != null">
                 p.id = #{id}
@@ -51,11 +51,11 @@
         p.perm_code as permCode,
         p.description as description,
         p.state as state
-        FROM permission p
-        INNER JOIN role_permission rp on p.ID=rp.permission_id
-        INNER JOIN role r ON r.id=rp.role_id
-        INNER JOIN user_role ur ON ur.role_id =rp.role_id
-        INNER JOIN user u ON u.id = ur.user_id
+        FROM sys_permission p
+        INNER JOIN sys_role_permission rp on p.ID=rp.permission_id
+        INNER JOIN sys_role r ON r.id=rp.role_id
+        INNER JOIN sys_user_role ur ON ur.role_id =rp.role_id
+        INNER JOIN sys_user u ON u.id = ur.user_id
         <where>
             <if test="id != null">
                 id = #{id}
@@ -82,7 +82,7 @@
         p.icon as icon,
         p.perm_code as permCode,
         p.description as description
-        FROM permission p
+        FROM sys_permission p
         <where>
             <if test="id != null">
                 id = #{id}
@@ -104,22 +104,23 @@
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Perm">
       insert into
-      permission
+      sys_permission
       (pid, name, type, sort, url, perm_code, icon, state, description)
       values
       (#{pid}, #{name}, #{type}, #{sort},#{url},#{permCode}, #{icon}, #{state},#{description})
    </insert>
 
     <delete id="del">
-        DELETE FROM permission
+        DELETE FROM sys_permission
         WHERE
-        <if test="id != null">
-            id = #{id}
-        </if>
+        id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </delete>
 
     <update id="update" parameterType="Perm">
-        UPDATE permission
+        UPDATE sys_permission
         <set>
             <if test="name != null">
                 name = #{name},

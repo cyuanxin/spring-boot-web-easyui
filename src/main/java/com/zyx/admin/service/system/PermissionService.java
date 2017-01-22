@@ -85,9 +85,9 @@ public class PermissionService {
         return permissionMapper.update(permission);
     }
 
-    public int delete(Map<String, Object> map, Map<String, Object> roperMap) {
+    public int delete(Map<String, Object> roperMap) {
         rolePermissionMapper.del(roperMap);
-        return permissionMapper.del(map);
+        return permissionMapper.del(roperMap);
     }
 
     /**
