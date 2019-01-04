@@ -1,0 +1,15 @@
+ngs/
+target/
+.classpath
+.metadata
+.project
+*.iml
+out/
+.DS_Store
+*/target
+rebel.xml
+classes/
+
+*.class
+bin
+/spring-boot-web-easyui/target/
